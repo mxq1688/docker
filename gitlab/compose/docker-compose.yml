@@ -1,0 +1,31 @@
+version: '2'
+services:
+    gitlab:
+      image: 'gitlab/gitlab-ce:latest'
+      container_name: "gitlab"
+      privileged: true
+      environment:
+        TZ: 'Asia/Shanghai'
+        GITLAB_OMNIBUS_CONFIG: |
+          gitlab_rails['time_zone'] = 'Asia/Shanghai'
+          # 配置http协议所使用的访问地址,不加端口号默认为80
+          external_url 'http://192.168.99.103'
+          # 配置ssh协议所使用的访问地址和端口
+          gitlab_rails['gitlab_ssh_host'] = '192.168.99.103'
+          gitlab_rails['gitlab_shell_ssh_port'] = 8022 
+      ports:
+        - '80:80'
+        - '443:443'
+        - '8022:22'
+      volumes: #目录权限问题 
+        - /var/gitlab/config:/etc/gitlab
+        - /var/gitlab/data:/var/opt/gitlab
+        - /var/gitlab/logs:/var/log/gitlab
+    gitlab-runner:
+      image: gitlab/gitlab-runner:latest
+      privileged: true
+      container_name: gitlab-runner
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - $PWD/../gitlab-runner/config.toml:/etc/gitlab-runner/config.toml
+      restart: always

@@ -1,0 +1,13 @@
+version: "3"
+services:                            
+  JointServing:
+    user: root
+    restart: always             
+    image: nginx
+    container_name: myapp          
+    ports:                               
+      - 80:80
+      - 433:433
+    volumes:                               
+      - $PWD/nginx/conf.d/:/etc/nginx/conf.d
+      - /Users/sn/stu/docker/myapp/html:/usr/share/nginx/html
