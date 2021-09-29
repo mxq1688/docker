@@ -24,5 +24,5 @@ services:                                      # 集合
     volumes:
       - $PWD/../nginx/conf.d/:/etc/nginx/conf.d
       # - $PWD/../webserver/static/jenkins/dist/dist:/usr/share/nginx/html
-      - /Users/sn/stu/docker/dockerNginxJenkins/webserver/static/jenkins/dist/dist:/usr/share/nginx/html
+      - /Users/sn/stu/docker/nginxJenkins/webserver/static/jenkins/dist/dist:/usr/share/nginx/html
       # - /var/html/dist:/usr/share/nginx/html
