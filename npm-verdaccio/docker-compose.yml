@@ -1,0 +1,9 @@
+version: '3'
+services:
+  npm:
+    restart: always
+    image: verdaccio/verdaccio
+    container_name: npm_verdaccio
+    ports:
+      - 4873:4873
+    # volumes:
