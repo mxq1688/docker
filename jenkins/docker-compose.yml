@@ -1,0 +1,24 @@
+version: '3'
+services:
+  docker_jenkins:
+    user: root #解决volumes映射权限问题
+    restart: always
+    image: jenkins/jenkins:lts
+    container_name: docker_jenkins
+    ports:
+      - '8081:8080'
+      - '50000:50000'
+    volumes:
+      - /var/jenkins_home/data/:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+      - /usr/lib/x86_64-linux-gnu/libltdl.so.7:/usr/lib/x86_64-linux-gnu/libltdl.so.7
+    environment:
+      - TZ=Asia/Shanghai
+    deploy:
+      resources:
+         limits:
+            cpus: "2.00"
+            memory: 1G
+         reservations:
+            memory: 200M
