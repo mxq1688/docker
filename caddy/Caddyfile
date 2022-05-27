@@ -1,0 +1,7 @@
+:80 {
+	root * /srv
+    file_server
+    reverse_proxy /web-api/*  {
+        to 10.1.196.2:8888
+    }
+}
