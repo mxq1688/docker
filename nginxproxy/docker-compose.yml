@@ -1,0 +1,11 @@
+version: "3"
+services:
+  nginx:
+    restart: always
+    image: nginx
+    user: root
+    ports:
+      - "443:443"
+    volumes:
+      - "$PWD/nginx/:/etc/nginx/conf.d/"
+    container_name: "proxy-nginx"
