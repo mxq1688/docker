@@ -1,0 +1,91 @@
+  # 素有包的保存路径
+  storage: /verdaccio/storage/data
+  # 插件的保存路径
+  plugins: /verdaccio/plugins
+  store:
+    s3-storage:
+      bucket: xxx
+  #   keyPrefix: npm # optional, has the effect of nesting all files in a subdirectory
+  #   region:  s3-cn-bj # optional, will use aws s3's default behavior if not specified
+      endpoint: xxx # optional, will use aws s3's default behavior if not specified
+  #     s3ForcePathStyle: false # optional, will use path style URLs for S3 objects
+      accessKeyId: xxx
+      secretAccessKey: xxx
+  # 通过web访问
+  uplinks:
+    npmmirror:
+      url: https://registry.npmjs.org/
+    npmjs:
+      url: https://registry.npmjs.org/
+  web:
+    title: 出门问问NPM仓库 
+ 
+  # 账号密码文件，初始不存在
+  auth:
+    htpasswd:
+      file: /verdaccio/storage/htpasswd
+      # max_users：1000
+      # 默认1000，允许用户注册数量。为-1时，不能通过 npm adduser 注册，此时可以直接修改 file 文件添加用户。
+    ldap:
+      type: ldap
+      # Only required if you are fetching groups that do not have a "cn" property. defaults to "cn"
+      groupNameAttribute: "ou"
+      # Optional, default false.
+      cache:
+        # max credentials to cache (default to 100 if cache is enabled)
+        size: 100
+        # cache expiration in seconds (default to 300 if cache is enabled)
+        expire: 300
+      client_options:
+        url: "xxx"
+        # Only required if you need auth to bind
+        adminDn: "xxx"
+        adminPassword: "xxx"
+        # Search base for users
+        searchBase: "xxx"
+        searchFilter: "(uid={{username}})"
+        # If you are using groups, this is also needed
+        groupDnProperty: 'cn'
+        groupSearchBase: 'ou=groups,dc=myorg,dc=com'
+        # If you have memberOf support on your ldap
+        searchAttributes: ['*', 'memberOf']
+        # Else, if you don't (use one or the other):
+        # groupSearchFilter: '(memberUid={{dn}})'
+        # Optional
+        reconnect: true
+  # 本地不存在时，读取仓库的地址
+  #uplinks:
+  #  npmjs:
+  #    url: https://registry.npmjs.org
+ 
+  # 对包的访问操作权限，可以匹配某个具体项目，也可以通配
+  # access 访问下载；publish 发布；unpublish 取消发布；
+  # proxy 对应着uplinks名称，本地不存在，去unplinks里取
+ 
+  # $all 表示所有人都可以执行该操作
+  # $authenticated 已注册账户可操作
+  # $anonymous 匿名用户可操作
+  # 还可以明确指定 htpasswd 用户表中的用户，可以配置一个或多个。
+  packages:
+    '@*/*':
+      access: $all
+      publish: $authenticated
+      unpublish: $authenticated
+      proxy: npmjs
+ 
+    '**':
+      access: $all
+      publish: $authenticated
+      unpublish: $authenticated
+      proxy: npmjs
+ 
+  # 服务器相关
+  sever:
+    keepAliveTimeout: 60
+ 
+  middlewares:
+    audit:
+      enabled: true
+ 
+  # 日志设定
+  logs: { type: stdout, format: pretty, level: http }
