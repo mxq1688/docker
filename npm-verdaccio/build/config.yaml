@@ -1,24 +1,28 @@
-  # 素有包的保存路径
+ # 素有包的保存路径
   storage: /verdaccio/storage/data
   # 插件的保存路径
   plugins: /verdaccio/plugins
+  max_body_size: 500mb
   store:
     s3-storage:
-      bucket: xxx
+      bucket: mobvoi-npm-private
   #   keyPrefix: npm # optional, has the effect of nesting all files in a subdirectory
   #   region:  s3-cn-bj # optional, will use aws s3's default behavior if not specified
-      endpoint: xxx # optional, will use aws s3's default behavior if not specified
+      endpoint: http://internal.s3-cn-bj.ufileos.com # optional, will use aws s3's default behavior if not specified
   #     s3ForcePathStyle: false # optional, will use path style URLs for S3 objects
-      accessKeyId: xxx
-      secretAccessKey: xxx
+      accessKeyId: ''
+      secretAccessKey: ''
+
   # 通过web访问
   uplinks:
     npmmirror:
-      url: https://registry.npmjs.org/
+      url: https://registry.npmmirror.com/
     npmjs:
       url: https://registry.npmjs.org/
+  publish:
+    allow_offline: true
   web:
-    title: 出门问问NPM仓库 
+    title: '' 
  
   # 账号密码文件，初始不存在
   auth:
@@ -37,12 +41,12 @@
         # cache expiration in seconds (default to 300 if cache is enabled)
         expire: 300
       client_options:
-        url: "xxx"
+        url: "ldap://xxx/"
         # Only required if you need auth to bind
-        adminDn: "xxx"
-        adminPassword: "xxx"
+        adminDn: ""
+        adminPassword: ""
         # Search base for users
-        searchBase: "xxx"
+        searchBase: ""
         searchFilter: "(uid={{username}})"
         # If you are using groups, this is also needed
         groupDnProperty: 'cn'
