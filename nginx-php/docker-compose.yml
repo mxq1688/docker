@@ -1,0 +1,36 @@
+version: "3"
+services:
+  nginx:
+    # 使用镜像
+    image: nginx:latest
+    container_name: "compose-nginx"
+    # 端口映射
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - TZ=Asia/Shanghai
+    depends_on:
+      - "php"
+    # 目录挂载
+    volumes:
+      - /Users/meng/work/nginx-test:/usr/share/nginx/html
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./log:/var/log/nginx
+    # 网络
+    networks:
+      - my-network
+  php:
+    image: php:7.0-fpm
+    container_name: "compose-php"
+    ports:
+      - "9000:9000"
+    environment:
+        - TZ=Asia/Shanghai
+    volumes:
+      - /Users/meng/work/nginx-test:/usr/share/nginx/html
+    networks:
+      - my-network
+networks:
+  my-network:
+    driver: bridge
