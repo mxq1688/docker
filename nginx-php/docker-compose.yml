@@ -14,7 +14,7 @@ services:
       - "php"
     # 目录挂载
     volumes:
-      - /Users/meng/work/nginx-test:/usr/share/nginx/html
+      - ./www:/usr/share/nginx/html
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./log:/var/log/nginx
     # 网络
