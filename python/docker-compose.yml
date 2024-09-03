@@ -9,7 +9,7 @@ services:
     volumes:
       - /Users/meng/work/yuan365_client_controller:/app
       # - /Users/meng/stu/python/py-docker:/app
-      # - ./site-packages:/usr/local/lib/python3.12/site-packages # pip安装的包
+      # - ./site-packages:/usr/local/lib/python3.12/site-packages # 持久化pip安装的包
     working_dir: /app
     # ports:  # 端口映射
       # - "8000:8000"

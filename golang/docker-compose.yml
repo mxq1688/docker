@@ -1,9 +1,16 @@
 version: '3'
 services:
   app:
+    # build: .
     image: golang:1.18
     volumes:
-      - /Users/meng/stu/go-docker:/go/src/examplecom/http_demo
+      - /Users/meng/stu/go:/go
+    working_dir: /go/src/mod_test
     ports:
       - "8000:8080"
-    command: go run /go/src/examplecom/http_demo/main.go
+    environment:  # 配置环境变量
+      - TZ=Asia/Shanghai  # 设置时区
+    # 相当于docker run -it
+    tty: true # 保持终端打开
+    stdin_open: true # 允许从宿主机发送输入
+    # command: sh
