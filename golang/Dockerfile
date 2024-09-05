@@ -14,7 +14,10 @@ RUN go get -d -v ./...
 RUN go build -o /go/bin/app
 
 # 设置环境变量
-ENV PATH="/go/bin:${PATH}"
+ENV GOPATH=/go
+ENV GOBIN=$GOPATH/bin
+ENV PATH=$PATH:$GOBIN
+
 
 # 暴露指定端口
 EXPOSE 8080

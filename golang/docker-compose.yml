@@ -2,14 +2,21 @@ version: '3'
 services:
   app:
     # build: .
-    image: golang:1.18
+    # image: golang:1.18
+    # image: golang:1.22.5
+    image: docker-u.mobvoi.com/aiask-webrtc:master-20240814162038
     volumes:
-      - /Users/meng/stu/go:/go
-    working_dir: /go/src/mod_test
+      # - /Users/meng/stu/go:/go
+      - /Users/meng/aiask-webrtc:/go/aiask-webrtc
+    working_dir: /go/aiask-webrtc
+    # working_dir: /go/src/mod_test
     ports:
       - "8000:8080"
     environment:  # 配置环境变量
       - TZ=Asia/Shanghai  # 设置时区
+      - GOPATH=/go
+      - GOBIN=$GOPATH/bin
+      - PATH=$PATH:$GOBIN
     # 相当于docker run -it
     tty: true # 保持终端打开
     stdin_open: true # 允许从宿主机发送输入
