@@ -1,6 +1,8 @@
 #### 开发环境
 ```
-
+go 安装的包持久化
+    volumes:
+        - /Users/meng/stu/docker/golang/pkg:/go/pkg
 ```
 >宿主机运行
 ```
@@ -16,3 +18,7 @@
 
 
 ```
+
+brew install pkg-config
+brew install libopusenc
+brew install opusfile 
